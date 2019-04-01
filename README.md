@@ -1,7 +1,7 @@
 # pyposlaju
 
 ```
-$ python3 poslaju.py -t EP123456789MY
+$ python3 poslaju.py EP123456789MY
 datetime                  details                                               location
 ------------------------  ----------------------------------------------------  --------------------
 17 Apr 2019, 09:47:02 AM  Consignment successfully delivered  MD MINHAZUL       Pos Laju Bangsar
@@ -16,3 +16,7 @@ datetime                  details                                               
 12 Apr 2019, 04:14:46 PM  Item processed                                        DC Pos Laju Banting
 12 Apr 2019, 04:07:00 PM  Item dispatched out                                   Banting PO
 ```
+## Required
+
+ - [x] tabulate
+ - [x] BeautifulSoup
