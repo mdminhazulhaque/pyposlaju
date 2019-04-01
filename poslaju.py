@@ -37,6 +37,10 @@ def poslaju_info(trackingno):
     }
     
     response = requests.post('https://www.pos.com.my/postal-services/quick-access/?track-trace', data=_data).text
+    
+    if "Please insert the correct Tracking Number.No" in response:
+        return None
+    
     regex = re.compile(r'var strTD =  "(.*?)</table>";', re.S|re.M)
     table = regex.search(response).group(1)
     
@@ -48,21 +52,14 @@ def poslaju_info(trackingno):
         cells = row.find_all("td")
         items = []
         for cell in cells:
-            items.append(PosLaju.truncate(cell.text.strip()))
+            items.append(truncate(cell.text.strip()))
         data.append(items)
     data.pop(0) # first row has headers
     
     print(tabulate.tabulate(data, headers=["datetime", "details", "location"], tablefmt="simple"))
 
 if __name__ == "__main__":
-    import argparse
-    
-    parser = argparse.ArgumentParser(description="Pos Laju Tracking Info Checker", add_help=False)
-    parser.add_argument('-t', dest='trackingno', action="store", required=True, type=str)
-    args = parser.parse_args()
-    
-    try:
-        poslaju_info(args.trackingno)
-    except Exception as r:
-        print(r)
+    import sys
+    trackingno = sys.argv[1]
+    poslaju_info(trackingno)
     
